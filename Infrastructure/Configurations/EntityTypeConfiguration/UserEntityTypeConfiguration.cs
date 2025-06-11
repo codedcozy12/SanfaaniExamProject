@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.EntityTypeConfiguration
+namespace Infrastructure.Configurations.EntityTypeConfiguration
 {
      
 public class UserConfiguration : IEntityTypeConfiguration<User>
@@ -15,10 +15,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             
             builder.HasKey(u => u.Id);
 
-             
-            builder.Property(u => u.Username)
-                .IsRequired()
-                .HasMaxLength(100);
+
+            builder.HasIndex(u => u.Username);
 
             builder.Property(u => u.Email)
                 .IsRequired()

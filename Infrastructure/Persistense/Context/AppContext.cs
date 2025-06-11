@@ -2,7 +2,7 @@
 using Infrastructure.EntityTypeConfiguration;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Context
+namespace Infrastructure.Persistense.Context
 {
     public class AppContext : DbContext
     {

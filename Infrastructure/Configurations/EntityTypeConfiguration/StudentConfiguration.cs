@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Infrastructure.EntityTypeConfiguration
+namespace Infrastructure.Configurations.EntityTypeConfiguration
 {
     public class StudentConfiguration : IEntityTypeConfiguration<Student>
     {
@@ -45,6 +45,8 @@ namespace Infrastructure.EntityTypeConfiguration
                 .HasMaxLength(100);
 
             builder.Property(s => s.DateOfBirth)
+                .HasConversion(v => v.ToDateTime(TimeOnly.MinValue), v => DateOnly.FromDateTime(v))
+                .HasColumnType("date")
                 .IsRequired();
 
             builder.Property(s => s.CreatedAt)

@@ -19,4 +19,11 @@
     <ProjectReference Include="..\Application\Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistense\Repositories\" />
+    <Folder Include="Persistense\UnitOfWork\" />
+    <Folder Include="Service\Auth\" />
+    <Folder Include="Service\External\" />
+  </ItemGroup>
+
 </Project>
