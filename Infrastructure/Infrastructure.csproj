@@ -13,6 +13,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.11" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="8.12.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,7 +23,6 @@
   <ItemGroup>
     <Folder Include="Persistense\Repositories\" />
     <Folder Include="Persistense\UnitOfWork\" />
-    <Folder Include="Service\Auth\" />
     <Folder Include="Service\External\" />
   </ItemGroup>
 

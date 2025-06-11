@@ -11,8 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
-    <Folder Include="Interfaces\Auth\" />
     <Folder Include="Interfaces\External\" />
     <Folder Include="Interfaces\UnitOfWork\" />
     <Folder Include="Interfaces\Repositories\" />
