@@ -1,0 +1,49 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Domain.Entities;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
+
+namespace Infrastructure.EntityTypeConfiguration
+{
+    public class InstructorConfiguration : IEntityTypeConfiguration<Instructor>
+    {
+        public void Configure(EntityTypeBuilder<Instructor> builder)
+        { 
+            
+            builder.ToTable("Instructors");
+
+            
+            builder.HasKey(i => i.Id);
+
+             
+            builder.Property(i => i.Id)
+                .ValueGeneratedOnAdd();
+
+            builder.Property(i => i.FullName)
+                .IsRequired()
+                .HasMaxLength(150);
+
+            builder.Property(i => i.Email)
+                .IsRequired()
+                .HasMaxLength(255);
+
+            builder.Property(i => i.IsActive)
+                .IsRequired();
+
+            builder.Property(i => i.CreatedAt)
+                .IsRequired()
+                .HasDefaultValueSql("GETUTCDATE()");
+
+           
+            builder.HasMany(i => i.Exams)
+                .WithOne(e => e.Instructor)
+                .HasForeignKey(e => e.InstructorId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
+    }
+
+}
