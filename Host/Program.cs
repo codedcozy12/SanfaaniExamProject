@@ -2,7 +2,6 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Application.Interfaces.UnitOfWork;
 using Application.Services;
-using FluentAssertions.Common;
 using Infrastructure.Persistense.Context;
 using Infrastructure.Persistense.Repositories;
 using Infrastructure.Persistense.UnitOfWork;
@@ -12,7 +11,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
-using System.Configuration;
 using System.Text;
 
 Log.Logger = new LoggerConfiguration().MinimumLevel.Information().Enrich.WithProperty("App Name", "Student Exam App").WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day).Enrich.FromLogContext().CreateLogger();
