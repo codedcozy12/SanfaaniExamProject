@@ -2,19 +2,24 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Application.Interfaces.UnitOfWork;
 using Application.Services;
+using FluentAssertions.Common;
+using Infrastructure.Persistense.Context;
 using Infrastructure.Persistense.Repositories;
 using Infrastructure.Persistense.UnitOfWork;
 using Infrastructure.Service.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using System.Configuration;
 using System.Text;
 
-Log.Logger = new LoggerConfiguration().MinimumLevel.Information().Enrich.WithProperty("App Name", "Task Flow App").WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day).Enrich.FromLogContext().CreateLogger();
+Log.Logger = new LoggerConfiguration().MinimumLevel.Information().Enrich.WithProperty("App Name", "Student Exam App").WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day).Enrich.FromLogContext().CreateLogger();
 var builder = WebApplication.CreateBuilder(args);
 
- 
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySQL(builder.Configuration.GetConnectionString("DevString")!));
+
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 
