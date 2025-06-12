@@ -1,12 +1,12 @@
 ﻿using Domain.Entities;
-using Infrastructure.EntityTypeConfiguration;
+using Infrastructure.Configurations.EntityTypeConfiguration;
 using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Persistense.Context
 {
-    public class AppContext : DbContext
+    public class AppDbContext : DbContext
     {
-        public AppContext(DbContextOptions<AppContext> options) : base(options) { }
+        public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<User> Users { get; set; }
         public DbSet<Instructor> Instructors { get; set; }

@@ -21,8 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Persistense\Repositories\" />
-    <Folder Include="Persistense\UnitOfWork\" />
     <Folder Include="Service\External\" />
   </ItemGroup>
 
