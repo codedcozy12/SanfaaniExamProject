@@ -49,8 +49,7 @@ namespace Infrastructure.Configurations.EntityTypeConfiguration
                 .HasColumnType("date")
                 .IsRequired();
 
-            builder.Property(s => s.CreatedAt)
-                .HasDefaultValueSql("GETUTCDATE()");
+            builder.Property(s => s.CreatedAt);
 
             
             builder.HasMany(s => s.Answers)

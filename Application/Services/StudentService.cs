@@ -33,7 +33,6 @@ namespace Application.Services
 
             var user = new User
             {
-                Id = userId,
                 Username = dto.Username,
                 Email = dto.Email,
                 PasswordHash = hashedPassword,

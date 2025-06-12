@@ -2,6 +2,7 @@ using Application.Interfaces.Repositories;
 using Application.Interfaces.Services;
 using Application.Interfaces.UnitOfWork;
 using Application.Services;
+using Infrastructure.Configurations;
 using Infrastructure.Persistense.Context;
 using Infrastructure.Persistense.Repositories;
 using Infrastructure.Persistense.UnitOfWork;
@@ -16,17 +17,7 @@ using System.Text;
 Log.Logger = new LoggerConfiguration().MinimumLevel.Information().Enrich.WithProperty("App Name", "Student Exam App").WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day).Enrich.FromLogContext().CreateLogger();
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySQL(builder.Configuration.GetConnectionString("DevString")!));
-
-builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-
-builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<IUserService, UserService>();
-
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<Application.Interfaces.Auth.IAuthService,AuthService>();
-
+ 
 builder.Services.AddAuthentication(config =>
 {
     config.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -42,9 +33,9 @@ builder.Services.AddAuthentication(config =>
         ValidateIssuer = true,
         ValidateAudience = true,
         ClockSkew = TimeSpan.Zero,
-        ValidIssuer = builder.Configuration.GetSection("Jwt")["issuer"],
-        ValidAudience = builder.Configuration.GetSection("Jwt")["audience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("Jwt")["key"]!)),
+        ValidIssuer = builder.Configuration.GetSection("JwtSettings")["Issuer"],
+        ValidAudience = builder.Configuration.GetSection("JwtSettings")["Audience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("JwtSettings")["Key"]!)),
 
     };
 });
@@ -86,8 +77,28 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("JwtSettings"));
+
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy => policy.AllowAnyOrigin()
+  .AllowAnyMethod()
+  .AllowAnyHeader());
+});
+builder.Services.AddDbContext<AppDbContext>(opt => opt.UseMySQL(builder.Configuration.GetConnectionString("DevString")!));
+
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<Application.Interfaces.Auth.IAuthService, AuthService>();
 
 var app = builder.Build();
 
@@ -102,10 +113,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAll");
 
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.UseStaticFiles();
 
+ 
 app.Run();

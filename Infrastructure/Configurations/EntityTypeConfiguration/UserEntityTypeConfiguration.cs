@@ -25,17 +25,13 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             builder.Property(u => u.PasswordHash)
                 .IsRequired();
 
-            builder.Property(u => u.PasswordSalt)
-                .IsRequired();
-
             builder.Property(u => u.Role)
                 .IsRequired();
 
             builder.Property(u => u.IsActive)
                 .IsRequired();
 
-            builder.Property(u => u.CreatedAt)
-                .HasDefaultValueSql("GETUTCDATE()");
+            builder.Property(u => u.CreatedAt);
 
              
             builder.HasMany(u => u.Notifications)

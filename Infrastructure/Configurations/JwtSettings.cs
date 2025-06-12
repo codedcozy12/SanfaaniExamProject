@@ -12,7 +12,7 @@ namespace Infrastructure.Configurations
         public string Key { get; set; } = default!;
         public string Issuer { get; set; } = default!;
         public string Audience { get; set; } = default!;
-        public int ExpiryTime { get; set; } // in minutes
+        public int ExpiryTime { get; set; } 
  
     }
 }

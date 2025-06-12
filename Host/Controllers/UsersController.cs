@@ -21,10 +21,10 @@ namespace Host.Controllers
         }
 
         [HttpPost("login")]
-        [SwaggerOperation(Description = "Logs in a user using email and password.")]
+        [SwaggerOperation(Summary = "Logs in a user using email and password.")]
         public async Task<IActionResult> Login([FromBody] LoginDto dto)
         {
-            if(ModelState.IsValid)
+            if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -37,7 +37,7 @@ namespace Host.Controllers
         }
 
         [HttpGet]
-        [SwaggerOperation(Description = "Retrieves all active users.")]
+        [SwaggerOperation(Summary = "Retrieves all active users.")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _userService.GetAllUsersAsync();
@@ -45,7 +45,7 @@ namespace Host.Controllers
         }
 
         [HttpGet("{id}")]
-        [SwaggerOperation(Description = "Retrieves a user by their unique ID.")]
+        [SwaggerOperation(Summary = "Retrieves a user by their unique ID.")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _userService.GetUserByIdAsync(id);
@@ -53,7 +53,7 @@ namespace Host.Controllers
         }
 
         [HttpGet("search")]
-        [SwaggerOperation(Description = "Searches for users by username or email.")]
+        [SwaggerOperation(Summary = "Searches for users by username or email.")]
         public async Task<IActionResult> Search([FromQuery][Required] string keyword)
         {
             var result = await _userService.SearchUsersAsync(keyword);
@@ -61,7 +61,7 @@ namespace Host.Controllers
         }
 
         [HttpDelete("{id}")]
-        [SwaggerOperation(Description = "Deactivates a user account (soft delete).")]
+        [SwaggerOperation(Summary = "Deactivates a user account (soft delete).")]
         public async Task<IActionResult> Deactivate(Guid id)
         {
             var result = await _userService.DeactivateUserAsync(id);

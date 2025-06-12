@@ -30,8 +30,7 @@ namespace Infrastructure.Configurations.EntityTypeConfiguration
                 .IsRequired();
 
             builder.Property(i => i.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("GETUTCDATE()");
+                .IsRequired();
 
            
             builder.HasMany(i => i.Exams)

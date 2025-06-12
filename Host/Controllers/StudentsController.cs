@@ -14,10 +14,10 @@ namespace Host.Controllers
         public StudentController(IStudentService studentService) => _studentService = studentService;
 
         [HttpPost]
-        [SwaggerOperation(Description = "Creates a new student and associated user account.")]
+        [SwaggerOperation(Summary = "Creates a new student and associated user account.")]
         public async Task<IActionResult> Create([FromBody] StudentCreateDto dto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -30,7 +30,7 @@ namespace Host.Controllers
         }
 
         [HttpGet]
-        [SwaggerOperation(Description = "Retrieves all active students.")]
+        [SwaggerOperation(Summary = "Retrieves all active students.")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _studentService.GetAllStudentsAsync();
@@ -38,7 +38,7 @@ namespace Host.Controllers
         }
 
         [HttpGet("{id}")]
-        [SwaggerOperation(Description = "Retrieves a student by their unique ID.")]
+        [SwaggerOperation(Summary = "Retrieves a student by their unique ID.")]
         public async Task<IActionResult> GetById(Guid id)
         {
             var result = await _studentService.GetStudentByIdAsync(id);
@@ -46,10 +46,10 @@ namespace Host.Controllers
         }
 
         [HttpPut("{id}")]
-        [SwaggerOperation(Description = "Updates a student’s information.")]
+        [SwaggerOperation(Summary = "Updates a student’s information.")]
         public async Task<IActionResult> Update(Guid id, [FromBody] StudentUpdateDto dto)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
@@ -62,7 +62,7 @@ namespace Host.Controllers
         }
 
         [HttpDelete("{id}")]
-        [SwaggerOperation(Description = "Soft deletes a student by marking them inactive.")]
+        [SwaggerOperation(Summary = "Soft deletes a student by marking them inactive.")]
         public async Task<IActionResult> Delete(Guid id)
         {
             var result = await _studentService.DeleteStudentAsync(id);
@@ -70,7 +70,7 @@ namespace Host.Controllers
         }
 
         [HttpGet("search")]
-        [SwaggerOperation(Description = "Searches for students by name or email.")]
+        [SwaggerOperation(Summary = "Searches for students by name or email.")]
         public async Task<IActionResult> Search([FromQuery] string keyword)
         {
             var result = await _studentService.SearchStudentsAsync(keyword);

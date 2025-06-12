@@ -28,8 +28,7 @@ namespace Infrastructure.Configurations.EntityTypeConfiguration
                 .HasMaxLength(1000);  
 
             builder.Property(n => n.CreatedAt)
-                .IsRequired()
-                .HasDefaultValueSql("GETUTCDATE()");
+                .IsRequired();
 
             builder.Property(n => n.IsRead)
                 .IsRequired();
