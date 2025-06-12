@@ -12,6 +12,7 @@ namespace Domain.Entities
         public string SchoolName { get; set; } = default!;  
         public string Address { get; set; } = default!;
         public string GradeLevel { get; set; } = default!;
+        public bool IsActive { get; set; } = true;
         public DateOnly DateOfBirth { get; set; }
         public DateTime CreatedAt { get; set; }
         public ICollection<StudentAnswer> Answers { get; set; } = new HashSet<StudentAnswer>();

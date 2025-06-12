@@ -19,9 +19,10 @@ namespace Infrastructure.Service.Auth
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config.Key));
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier,userDto.Id.ToString()),
-                new Claim(ClaimTypes.Email, userDto.Email),
-                new Claim(ClaimTypes.Role, userDto.Role.ToString())
+                new Claim("UserId",userDto.Id.ToString()),
+                new Claim("Email", userDto.Email),
+                new Claim("Role", userDto.Role.ToString()),
+                new Claim("UserName", userDto.Username)
             };
 
             var token = new JwtSecurityToken
