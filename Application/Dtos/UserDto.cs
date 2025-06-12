@@ -2,7 +2,7 @@
 
 namespace Application.Dtos
 {
-    public class UserDto
+    public record UserDto
     {
         public Guid Id { get; set; }
         public required string Username { get; set; }
@@ -11,7 +11,7 @@ namespace Application.Dtos
         public bool IsActive { get; set; }
         public DateTime CreatedAt { get; set; }
     }
-    public class LoginDto
+    public record LoginDto
     {
         public required string Username { get; set; }
         public required string Password { get; set; }
