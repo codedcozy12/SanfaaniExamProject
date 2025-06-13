@@ -2,11 +2,6 @@
 using Domain.Entities;
 using Infrastructure.Persistense.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Infrastructure.Persistense.Repositories
 {
@@ -41,12 +36,7 @@ namespace Infrastructure.Persistense.Repositories
             await _context.Students.AddAsync(student);
         }
 
-        public void Update(Student student)
-        {
-            _context.Students.Update(student);
-        }
-
-        public async Task DeleteA(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             var student = await GetByIdAsync(id);
             if (student != null)
@@ -58,6 +48,11 @@ namespace Infrastructure.Persistense.Repositories
         public async Task<bool> ExistsAsync(Guid id)
         {
             return await _context.Students.AnyAsync(u => u.Id == id);
+        }
+
+        public async Task UpdateAsync(Student student)
+        {
+            _context.Students.Update(student);
         }
     }
 }

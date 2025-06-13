@@ -8,7 +8,7 @@ namespace Application.Interfaces.Repositories
         Task<Student?> GetByEmailAsync(string email);
         Task<IEnumerable<Student>> GetAllAsync();
         Task AddAsync(Student student);
-        void Update(Student student);
+        Task UpdateAsync(Student student);
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
     }
