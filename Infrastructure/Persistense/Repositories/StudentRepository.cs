@@ -41,12 +41,12 @@ namespace Infrastructure.Persistense.Repositories
             await _context.Students.AddAsync(student);
         }
 
-        public async Task UpdateAsync(Student student)
+        public void Update(Student student)
         {
             _context.Students.Update(student);
         }
 
-        public async Task DeleteAsync(Guid id)
+        public async Task DeleteA(Guid id)
         {
             var student = await GetByIdAsync(id);
             if (student != null)

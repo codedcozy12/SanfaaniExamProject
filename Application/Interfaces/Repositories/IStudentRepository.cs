@@ -1,9 +1,4 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Application.Interfaces.Repositories
 {
@@ -13,7 +8,7 @@ namespace Application.Interfaces.Repositories
         Task<Student?> GetByEmailAsync(string email);
         Task<IEnumerable<Student>> GetAllAsync();
         Task AddAsync(Student student);
-        Task UpdateAsync(Student student);
+        void Update(Student student);
         Task DeleteAsync(Guid id);
         Task<bool> ExistsAsync(Guid id);
     }
